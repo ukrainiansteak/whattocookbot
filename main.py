@@ -28,7 +28,10 @@ def cook(update: Update, context: CallbackContext):
     ids = tables.session.execute(select(tables.Recipe.id))
     ids = [dict(row) for row in ids]
     recipe_id = random.choice(ids)['id']
-    recipe = [dict(row) for row in tables.session.execute(select(tables.Recipe.name).where(tables.Recipe.id == recipe_id))]
+    recipe = [dict(row) for row in tables.session.execute(
+        select(tables.Recipe.name)
+        .where(tables.Recipe.id == recipe_id)
+    )]
     context.bot.send_message(chat_id=update.effective_chat.id, text=recipe[0]['name'])
 
 
